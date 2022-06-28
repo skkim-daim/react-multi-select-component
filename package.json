@@ -20,7 +20,10 @@
     "react": "^16 || ^17 || ^18",
     "react-dom": "^16 || ^17 || ^18"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
     "@storybook/addon-actions": "^6.5.6",

@@ -1,5 +1,6 @@
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import React, { useState } from "react";
+import styled from "@emotion/styled";
 
 import MultiSelect from "../src/multi-select";
 import { options } from "./constants";
@@ -9,11 +10,16 @@ export default {
   decorators: [withKnobs],
 };
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 500px;
+`;
+
 export const ExampleDefault = () => {
   const [selected, setSelected] = useState([]);
 
   return (
-    <div>
+    <Wrapper>
       {/* <pre>{JSON.stringify(selected)}</pre> */}
       <MultiSelect
         options={options}
@@ -30,7 +36,7 @@ export const ExampleDefault = () => {
         labelledBy={text("labelledBy", "Select Fruits")}
         className={text("className", "multi-select")}
       />
-    </div>
+    </Wrapper>
   );
 };
 

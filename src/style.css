@@ -9,6 +9,9 @@
   --rmsc-p: 10px;
   --rmsc-radius: 4px;
   --rmsc-h: 38px;
+
+  height: 100%;
+  width: 100%;
 }
 
 .rmsc * {
@@ -20,37 +23,16 @@
   color: var(--rmsc-gray);
 }
 
-.rmsc .dropdown-content {
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  width: 100%;
-  padding-top: 8px;
-}
-
-.rmsc .dropdown-content .panel-content {
-  overflow: hidden;
-  border-radius: var(--rmsc-radius);
-  background: var(--rmsc-bg);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 11px rgba(0, 0, 0, 0.1);
-}
-
 .rmsc .dropdown-container {
+  display: flex;
+  flex-direction: column;
   position: relative;
+  height: 100%;
+  width: 100%;
   outline: 0;
   background-color: var(--rmsc-bg);
   border: 1px solid var(--rmsc-border);
-  border-radius: var(--rmsc-radius);
-}
-
-.rmsc .dropdown-container[aria-disabled="true"]:focus-within {
-  box-shadow: var(--rmsc-gray) 0 0 0 1px;
-  border-color: var(--rmsc-gray);
-}
-
-.rmsc .dropdown-container:focus-within {
-  box-shadow: var(--rmsc-main) 0 0 0 1px;
-  border-color: var(--rmsc-main);
+  /* border-radius: var(--rmsc-radius); */
 }
 
 .rmsc .dropdown-heading {
@@ -59,10 +41,48 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: var(--rmsc-h);
+  flex: 0 0 var(--rmsc-h);
   cursor: default;
   outline: 0;
+  border-bottom: 1px solid var(--rmsc-border);
 }
+
+.rmsc .dropdown-content {
+  /* position: absolute; */
+  /* z-index: 1;
+  top: 100%;
+  width: 100%; */
+  /* padding-top: 8px; */
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.rmsc .dropdown-content .panel-content {
+  height: 100%;
+  border-radius: var(--rmsc-radius);
+  background: var(--rmsc-bg);
+  display: flex;
+  flex-direction: column;
+  /* box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 11px rgba(0, 0, 0, 0.1); */
+}
+
+.rmsc .dropdown-content .panel-content .select-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.rmsc .dropdown-container[aria-disabled="true"]:focus-within {
+  box-shadow: var(--rmsc-gray) 0 0 0 1px;
+  border-color: var(--rmsc-gray);
+}
+
+/* .rmsc .dropdown-container:focus-within {
+  box-shadow: var(--rmsc-main) 0 0 0 1px;
+  border-color: var(--rmsc-main);
+} */
 
 .rmsc .dropdown-heading .dropdown-heading-value {
   overflow: hidden;
@@ -80,7 +100,7 @@
 }
 
 .rmsc .options {
-  max-height: 860px;
+  flex: 1 1 auto;
   overflow-y: auto;
   margin: 0;
   padding-left: 0;
@@ -121,6 +141,7 @@
 
 .rmsc .search {
   width: 100%;
+  flex: 0 0 39px;
   position: relative;
   border-bottom: 1px solid var(--rmsc-border);
 }
