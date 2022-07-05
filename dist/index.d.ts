@@ -42,14 +42,7 @@ declare const MultiSelect: (props: ISelectProps) => JSX.Element;
 
 declare const Dropdown: () => JSX.Element;
 
-declare const SelectPanel: {
-    ({ isSelectAll }: {
-        isSelectAll: any;
-    }): JSX.Element;
-    defaultProps: {
-        isSelectAll: boolean;
-    };
-};
+declare const SelectPanel: () => JSX.Element;
 
 interface ISelectItemProps {
     itemRenderer: any;

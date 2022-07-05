@@ -157,8 +157,10 @@ const SelectPanel = () => {
   };
 
   useEffect(() => {
-    selectAllChanged(isSelectAll);
-  }, []);
+    if (isSelectAll) {
+      selectAllChanged(isSelectAll);
+    }
+  }, [isSelectAll]);
 
   useEffect(() => {
     listRef?.current?.querySelector(`[tabIndex='${focusIndex}']`)?.focus();

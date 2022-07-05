@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 export const ExampleDefault = () => {
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState([...options.slice(0, 3)]);
 
   return (
     <Wrapper>
@@ -35,7 +35,6 @@ export const ExampleDefault = () => {
         }}
         labelledBy={text("labelledBy", "Select Fruits")}
         className={text("className", "multi-select")}
-        isSelectAll
       />
     </Wrapper>
   );

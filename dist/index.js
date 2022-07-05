@@ -405,8 +405,10 @@ var SelectPanel = () => {
     setFocusIndex(newFocus);
   };
   (0, import_react8.useEffect)(() => {
-    selectAllChanged(isSelectAll);
-  }, []);
+    if (isSelectAll) {
+      selectAllChanged(isSelectAll);
+    }
+  }, [isSelectAll]);
   (0, import_react8.useEffect)(() => {
     var _a, _b;
     (_b = (_a = listRef == null ? void 0 : listRef.current) == null ? void 0 : _a.querySelector(`[tabIndex='${focusIndex}']`)) == null ? void 0 : _b.focus();
