@@ -32,6 +32,7 @@ export interface ISelectProps {
   ClearSelectedIcon?: ReactNode;
   defaultIsOpen?: boolean;
   isOpen?: boolean;
+  isSelectAll?: boolean;
   isCreatable?: boolean;
   onCreateOption?;
   closeOnChangedValue?: boolean;

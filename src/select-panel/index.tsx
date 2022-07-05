@@ -25,7 +25,7 @@ enum FocusType {
   NONE = -1,
 }
 
-const SelectPanel = ({ isSelectAll }) => {
+const SelectPanel = () => {
   const {
     t,
     onChange,
@@ -41,6 +41,7 @@ const SelectPanel = ({ isSelectAll }) => {
     debounceDuration,
     isCreatable,
     onCreateOption,
+    isSelectAll,
   } = useMultiSelect();
 
   const listRef = useRef<any>();
@@ -246,10 +247,6 @@ const SelectPanel = ({ isSelectAll }) => {
       </ul>
     </div>
   );
-};
-
-SelectPanel.defaultProps = {
-  isSelectAll: true,
 };
 
 export default SelectPanel;

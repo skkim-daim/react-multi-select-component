@@ -3,20 +3,21 @@ import React, { useEffect, useState } from "react";
 import { ISelectProps, Option } from "../lib/interfaces";
 
 const defaultStrings = {
-  allItemsAreSelected: "전체 선택됨",
+  allItemsAreSelected: "All items are selected.",
   clearSearch: "Clear Search",
   clearSelected: "Clear Selected",
-  noOptions: "선택할 항목이 없습니다",
-  search: "찾기",
-  selectAll: "전체 선택",
-  selectAllFiltered: "전체 선택 (필터링 적용)",
-  selectSomeItems: "선택하세요",
+  noOptions: "No options",
+  search: "Search",
+  selectAll: "Select All",
+  selectAllFiltered: "Select All (Filtered)",
+  selectSomeItems: "Select...",
   create: "Create",
 };
 
 const defaultProps: Partial<ISelectProps> = {
   value: [],
   hasSelectAll: true,
+  isSelectAll: false,
   className: "multi-select",
   debounceDuration: 200,
   options: [] as Option[],

@@ -1,2 +1,611 @@
-var Fe=Object.defineProperty,Le=Object.defineProperties;var Ke=Object.getOwnPropertyDescriptors;var ae=Object.getOwnPropertySymbols;var We=Object.prototype.hasOwnProperty,Re=Object.prototype.propertyIsEnumerable;var ie=(e,t,r)=>t in e?Fe(e,t,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[t]=r,V=(e,t)=>{for(var r in t||(t={}))We.call(t,r)&&ie(e,r,t[r]);if(ae)for(var r of ae(t))Re.call(t,r)&&ie(e,r,t[r]);return e},ce=(e,t)=>Le(e,Ke(t));function $(e,{insertAt:t}={}){if(!e||typeof document>"u")return;let r=document.head||document.getElementsByTagName("head")[0],o=document.createElement("style");o.type="text/css",t==="top"&&r.firstChild?r.insertBefore(o,r.firstChild):r.appendChild(o),o.styleSheet?o.styleSheet.cssText=e:o.appendChild(document.createTextNode(e))}$(`.rmsc{--rmsc-main: #4285f4;--rmsc-hover: #e9edf2;--rmsc-selected: #e2e6ea;--rmsc-over-hover: #d4d8dd;--rmsc-border: #ccc;--rmsc-gray: #aaa;--rmsc-bg: #fff;--rmsc-p: 10px;--rmsc-radius: 4px;--rmsc-h: 38px;height:100%;width:100%}.rmsc *{box-sizing:border-box;transition:all .2s ease}.rmsc .gray{color:var(--rmsc-gray)}.rmsc .dropdown-container{display:flex;flex-direction:column;position:relative;height:100%;width:100%;outline:0;background-color:var(--rmsc-bg);border:1px solid var(--rmsc-border)}.rmsc .dropdown-heading{position:relative;padding:0 var(--rmsc-p);display:flex;align-items:center;width:100%;flex:0 0 var(--rmsc-h);cursor:default;outline:0;border-bottom:1px solid var(--rmsc-border)}.rmsc .dropdown-content{flex:1 1 auto;display:flex;flex-direction:column;overflow:auto}.rmsc .dropdown-content .panel-content{height:100%;border-radius:var(--rmsc-radius);background:var(--rmsc-bg);display:flex;flex-direction:column}.rmsc .dropdown-content .panel-content .select-panel{display:flex;flex-direction:column;height:100%}.rmsc .dropdown-container[aria-disabled=true]:focus-within{box-shadow:var(--rmsc-gray) 0 0 0 1px;border-color:var(--rmsc-gray)}.rmsc .dropdown-heading .dropdown-heading-value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.rmsc .clear-selected-button{cursor:pointer;background:none;border:0;padding:0;display:flex}.rmsc .options{flex:1 1 auto;overflow-y:auto;margin:0;padding-left:0}.rmsc .options li{list-style:none;margin:0}.rmsc .select-item{box-sizing:border-box;cursor:pointer;display:block;padding:var(--rmsc-p);outline:0}.rmsc .select-item:hover,.rmsc .select-item:focus{background:var(--rmsc-hover)}.rmsc .select-item.selected{background:var(--rmsc-selected)}.rmsc .select-item.selected:hover,.rmsc .select-item.selected:focus{background:var(--rmsc-over-hover)}.rmsc .no-options{padding:var(--rmsc-p);text-align:center;color:var(--rmsc-gray)}.rmsc .search{width:100%;flex:0 0 39px;position:relative;border-bottom:1px solid var(--rmsc-border)}.rmsc .search input{background:none;height:var(--rmsc-h);padding:0 var(--rmsc-p);width:100%;outline:0;border:0}.rmsc .search-clear-button{cursor:pointer;position:absolute;top:0;right:0;bottom:0;background:none;border:0;padding:0 calc(var(--rmsc-p) / 2)}.rmsc .search-clear-button [hidden]{display:none}.rmsc .item-renderer{display:flex;align-items:baseline}.rmsc .item-renderer input{margin:0 5px 0 0}.rmsc .item-renderer.disabled{opacity:.5}.rmsc .spinner{animation:rotate 2s linear infinite}.rmsc .spinner .path{stroke:var(--rmsc-border);stroke-width:4px;stroke-linecap:round;animation:dash 1.5s ease-in-out infinite}@keyframes rotate{to{transform:rotate(360deg)}}@keyframes dash{0%{stroke-dasharray:1,150;stroke-dashoffset:0}50%{stroke-dasharray:90,150;stroke-dashoffset:-35}to{stroke-dasharray:90,150;stroke-dashoffset:-124}}
-`);import ee from"react";import j,{useEffect as _e,useState as He}from"react";var Be={allItemsAreSelected:"\uC804\uCCB4 \uC120\uD0DD\uB428",clearSearch:"Clear Search",clearSelected:"Clear Selected",noOptions:"\uC120\uD0DD\uD560 \uD56D\uBAA9\uC774 \uC5C6\uC2B5\uB2C8\uB2E4",search:"\uCC3E\uAE30",selectAll:"\uC804\uCCB4 \uC120\uD0DD",selectAllFiltered:"\uC804\uCCB4 \uC120\uD0DD (\uD544\uD130\uB9C1 \uC801\uC6A9)",selectSomeItems:"\uC120\uD0DD\uD558\uC138\uC694",create:"Create"},Ue={value:[],hasSelectAll:!0,className:"multi-select",debounceDuration:200,options:[],defaultIsOpen:!0},de=j.createContext({}),me=({props:e,children:t})=>{let[r,o]=He(e.options),m=a=>{var c;return((c=e.overrideStrings)==null?void 0:c[a])||Be[a]};return _e(()=>{o(e.options)},[e.options]),j.createElement(de.Provider,{value:ce(V(V({t:m},Ue),e),{options:r,setOptions:o})},t)},w=()=>j.useContext(de);import y,{useEffect as Ee,useRef as et,useState as X}from"react";import{useEffect as Ve,useRef as $e}from"react";function pe(e,t){let r=$e(!1);Ve(()=>{r.current?e():r.current=!0},t)}import{useCallback as je,useEffect as ue,useMemo as Ye,useRef as qe}from"react";var ze={when:!0,eventTypes:["keydown"]};function k(e,t,r){let o=Ye(()=>Array.isArray(e)?e:[e],[e]),m=Object.assign({},ze,r),{when:a,eventTypes:c}=m,h=qe(t),{target:s}=m;ue(()=>{h.current=t});let p=je(l=>{o.some(i=>l.key===i||l.code===i)&&h.current(l)},[o]);ue(()=>{if(a&&typeof window<"u"){let l=s?s.current:window;return c.forEach(i=>{l&&l.addEventListener(i,p)}),()=>{c.forEach(i=>{l&&l.removeEventListener(i,p)})}}},[a,c,o,s,t])}var u={ARROW_DOWN:"ArrowDown",ARROW_UP:"ArrowUp",ENTER:"Enter",ESCAPE:"Escape",SPACE:"Space"};import x,{useCallback as Ze,useEffect as z,useMemo as xe,useRef as G,useState as R}from"react";var fe=(e,t)=>{let r;return function(...o){clearTimeout(r),r=setTimeout(()=>{e.apply(null,o)},t)}};function he(e,t){return t?e.filter(({label:r,value:o})=>r!=null&&o!=null&&r.toLowerCase().includes(t.toLowerCase())):e}import Y from"react";var K=()=>Y.createElement("svg",{width:"24",height:"24",fill:"none",stroke:"currentColor",strokeWidth:"2",className:"dropdown-search-clear-icon gray"},Y.createElement("line",{x1:"18",y1:"6",x2:"6",y2:"18"}),Y.createElement("line",{x1:"6",y1:"6",x2:"18",y2:"18"}));import ge,{useRef as Je}from"react";import q from"react";var Ge=({checked:e,option:t,onClick:r,disabled:o})=>q.createElement("div",{className:`item-renderer ${o&&"disabled"}`},q.createElement("input",{type:"checkbox",onChange:r,checked:e,tabIndex:-1,disabled:o}),q.createElement("span",null,t.label)),be=Ge;var Qe=({itemRenderer:e=be,option:t,checked:r,tabIndex:o,disabled:m,onSelectionChanged:a,onClick:c})=>{let h=Je(),s=i=>{p(),i.preventDefault()},p=()=>{m||a(!r)},l=i=>{p(),c(i)};return k([u.ENTER,u.SPACE],s,{target:h}),ge.createElement("label",{className:`select-item ${r&&"selected"}`,role:"option","aria-selected":r,tabIndex:o,ref:h},ge.createElement(e,{option:t,checked:r,onClick:l,disabled:m}))},T=Qe;import W from"react";var Xe=({options:e,onClick:t,skipIndex:r})=>{let{disabled:o,value:m,onChange:a,ItemRenderer:c}=w(),h=(s,p)=>{o||a(p?[...m,s]:m.filter(l=>l.value!==s.value))};return W.createElement(W.Fragment,null,e.map((s,p)=>{let l=p+r;return W.createElement("li",{key:(s==null?void 0:s.key)||p},W.createElement(T,{tabIndex:l,option:s,onSelectionChanged:i=>h(s,i),checked:!!m.find(i=>i.value===s.value),onClick:i=>t(i,l),itemRenderer:c,disabled:s.disabled||o}))}))},ve=Xe;var ye=({isSelectAll:e})=>{let{t,onChange:r,options:o,setOptions:m,value:a,filterOptions:c,ItemRenderer:h,disabled:s,disableSearch:p,hasSelectAll:l,ClearIcon:i,debounceDuration:_,isCreatable:A,onCreateOption:F}=w(),b=G(),v=G(),[g,P]=R(""),[S,O]=R(o),[N,M]=R(""),[D,E]=R(0),H=Ze(fe(n=>M(n),_),[]),I=xe(()=>{let n=0;return p||(n+=1),l&&(n+=1),n},[p,l]),te={label:t(g?"selectAllFiltered":"selectAll"),value:""},B=n=>{let d=S.filter(C=>!C.disabled).map(C=>C.value);if(n){let Te=[...a.map(U=>U.value),...d];return(c?S:o).filter(U=>Te.includes(U.value))}return a.filter(C=>!d.includes(C.value))},f=n=>{let d=B(n);r(d)},L=n=>{H(n.target.value),P(n.target.value),E(0)},re=()=>{var n;M(""),P(""),(n=v==null?void 0:v.current)==null||n.focus()},oe=n=>E(n),Ie=n=>{switch(n.code){case u.ARROW_UP:se(-1);break;case u.ARROW_DOWN:se(1);break;default:return}n.stopPropagation(),n.preventDefault()};k([u.ARROW_DOWN,u.ARROW_UP],Ie,{target:b});let Ae=()=>{E(0)},ne=async()=>{let n={label:g,value:g,__isNew__:!0};F&&(n=await F(g)),m([n,...o]),re(),r([...a,n])},Pe=async()=>c?await c(o,N):he(o,N),se=n=>{let d=D+n;d=Math.max(0,d),d=Math.min(d,o.length+Math.max(I-1,0)),E(d)};z(()=>{f(e)},[]),z(()=>{var n,d;(d=(n=b==null?void 0:b.current)==null?void 0:n.querySelector(`[tabIndex='${D}']`))==null||d.focus()},[D]);let[Ne,Me]=xe(()=>{let n=S.filter(d=>!d.disabled);return[n.every(d=>a.findIndex(C=>C.value===d.value)!==-1),n.length!==0]},[S,a]);z(()=>{Pe().then(O)},[N,o]);let le=G();k([u.ENTER],ne,{target:le});let De=A&&g&&!S.some(n=>(n==null?void 0:n.value)===g);return x.createElement("div",{className:"select-panel",role:"listbox",ref:b},!p&&x.createElement("div",{className:"search"},x.createElement("input",{placeholder:t("search"),type:"text","aria-describedby":t("search"),onChange:L,onFocus:Ae,value:g,ref:v,tabIndex:0}),x.createElement("button",{type:"button",className:"search-clear-button",hidden:!g,onClick:re,"aria-label":t("clearSearch")},i||x.createElement(K,null))),x.createElement("ul",{className:"options"},l&&Me&&x.createElement(T,{tabIndex:I===1?0:1,checked:Ne,option:te,onSelectionChanged:f,onClick:()=>oe(1),itemRenderer:h,disabled:s}),S.length?x.createElement(ve,{skipIndex:I,options:S,onClick:(n,d)=>oe(d)}):De?x.createElement("li",{onClick:ne,className:"select-item creatable",tabIndex:I===1?0:1,ref:le},`${t("create")} "${g}"`):x.createElement("li",{className:"no-options"},t("noOptions"))))};ye.defaultProps={isSelectAll:!0};var J=ye;import Se from"react";var Ce=({expanded:e})=>Se.createElement("svg",{width:"24",height:"24",fill:"none",stroke:"currentColor",strokeWidth:"2",className:"dropdown-heading-dropdown-arrow gray"},Se.createElement("path",{d:e?"M18 15 12 9 6 15":"M6 9L12 15 18 9"}));import we from"react";var Oe=()=>{let{t:e,value:t,options:r,valueRenderer:o}=w(),m=t.length===0,a=t.length===r.length,c=o&&o(t,r);return m?we.createElement("span",{className:"gray"},c||e("selectSomeItems")):we.createElement("span",null,c||(a?e("allItemsAreSelected"):(()=>t.map(s=>s.label).join(", "))()))};import Q from"react";var ke=({size:e=24})=>Q.createElement("span",{style:{width:e,marginRight:"0.2rem"}},Q.createElement("svg",{width:e,height:e,className:"spinner",viewBox:"0 0 50 50",style:{display:"inline",verticalAlign:"middle"}},Q.createElement("circle",{cx:"25",cy:"25",r:"20",fill:"none",className:"path"})));var tt=()=>{let{t:e,onMenuToggle:t,ArrowRenderer:r,shouldToggleOnHover:o,isLoading:m,disabled:a,onChange:c,labelledBy:h,value:s,isOpen:p,defaultIsOpen:l,ClearSelectedIcon:i,closeOnChangedValue:_}=w();Ee(()=>{_&&v(!1)},[s]);let[A,F]=X(!0),[b,v]=X(l),[g,P]=X(!1),S=r||Ce,O=et();pe(()=>{t&&t(b)},[b]),Ee(()=>{l===void 0&&typeof p=="boolean"&&(F(!1),v(p))},[p]);let N=f=>{var L;["text","button"].includes(f.target.type)&&[u.SPACE,u.ENTER].includes(f.code)||(A&&(f.code===u.ESCAPE?(v(!1),(L=O==null?void 0:O.current)==null||L.focus()):v(!0)),f.preventDefault())};k([u.ENTER,u.ARROW_DOWN,u.SPACE,u.ESCAPE],N,{target:O});let M=f=>{},D=()=>!g&&P(!0),E=f=>{!f.currentTarget.contains(f.relatedTarget)&&A&&P(!1)},H=()=>M(!0),I=()=>M(!1),te=()=>{A&&v(m||a?!1:!b)},B=f=>{f.stopPropagation(),c([])};return y.createElement("div",{tabIndex:0,className:"dropdown-container","aria-labelledby":h,"aria-expanded":b,"aria-readonly":!0,"aria-disabled":a,ref:O,onFocus:D,onBlur:E,onMouseEnter:H,onMouseLeave:I},y.createElement("div",{className:"dropdown-heading"},y.createElement("div",{className:"dropdown-heading-value"},y.createElement(Oe,null)),m&&y.createElement(ke,null),s.length>0&&i!==null&&y.createElement("button",{type:"button",className:"clear-selected-button",onClick:B,disabled:a,"aria-label":e("clearSelected")},i||y.createElement(K,null))),b&&y.createElement("div",{className:"dropdown-content"},y.createElement("div",{className:"panel-content"},y.createElement(J,null))))},Z=tt;var rt=e=>ee.createElement(me,{props:e},ee.createElement("div",{className:`rmsc ${e.className||"multi-select"}`},ee.createElement(Z,null))),ot=rt;export{Z as Dropdown,ot as MultiSelect,T as SelectItem,J as SelectPanel};
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+
+// #style-inject:#style-inject
+function styleInject(css, { insertAt } = {}) {
+  if (!css || typeof document === "undefined")
+    return;
+  const head = document.head || document.getElementsByTagName("head")[0];
+  const style = document.createElement("style");
+  style.type = "text/css";
+  if (insertAt === "top") {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+// src/style.css
+styleInject(".rmsc {\n  --rmsc-main: #4285f4;\n  --rmsc-hover: #e9edf2;\n  --rmsc-selected: #e2e6ea;\n  --rmsc-over-hover: #d4d8dd;\n  --rmsc-border: #ccc;\n  --rmsc-gray: #aaa;\n  --rmsc-bg: #fff;\n  --rmsc-p: 10px;\n  --rmsc-radius: 4px;\n  --rmsc-h: 38px;\n  height: 100%;\n  width: 100%;\n}\n.rmsc * {\n  box-sizing: border-box;\n  transition: all 0.2s ease;\n}\n.rmsc .gray {\n  color: var(--rmsc-gray);\n}\n.rmsc .dropdown-container {\n  display: flex;\n  flex-direction: column;\n  position: relative;\n  height: 100%;\n  width: 100%;\n  outline: 0;\n  background-color: var(--rmsc-bg);\n  border: 1px solid var(--rmsc-border);\n}\n.rmsc .dropdown-heading {\n  position: relative;\n  padding: 0 var(--rmsc-p);\n  display: flex;\n  align-items: center;\n  width: 100%;\n  flex: 0 0 var(--rmsc-h);\n  cursor: default;\n  outline: 0;\n  border-bottom: 1px solid var(--rmsc-border);\n}\n.rmsc .dropdown-content {\n  flex: 1 1 auto;\n  display: flex;\n  flex-direction: column;\n  overflow: auto;\n}\n.rmsc .dropdown-content .panel-content {\n  height: 100%;\n  border-radius: var(--rmsc-radius);\n  background: var(--rmsc-bg);\n  display: flex;\n  flex-direction: column;\n}\n.rmsc .dropdown-content .panel-content .select-panel {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.rmsc .dropdown-container[aria-disabled=true]:focus-within {\n  box-shadow: var(--rmsc-gray) 0 0 0 1px;\n  border-color: var(--rmsc-gray);\n}\n.rmsc .dropdown-heading .dropdown-heading-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  flex: 1;\n}\n.rmsc .clear-selected-button {\n  cursor: pointer;\n  background: none;\n  border: 0;\n  padding: 0;\n  display: flex;\n}\n.rmsc .options {\n  flex: 1 1 auto;\n  overflow-y: auto;\n  margin: 0;\n  padding-left: 0;\n}\n.rmsc .options li {\n  list-style: none;\n  margin: 0;\n}\n.rmsc .select-item {\n  box-sizing: border-box;\n  cursor: pointer;\n  display: block;\n  padding: var(--rmsc-p);\n  outline: 0;\n}\n.rmsc .select-item:hover,\n.rmsc .select-item:focus {\n  background: var(--rmsc-hover);\n}\n.rmsc .select-item.selected {\n  background: var(--rmsc-selected);\n}\n.rmsc .select-item.selected:hover,\n.rmsc .select-item.selected:focus {\n  background: var(--rmsc-over-hover);\n}\n.rmsc .no-options {\n  padding: var(--rmsc-p);\n  text-align: center;\n  color: var(--rmsc-gray);\n}\n.rmsc .search {\n  width: 100%;\n  flex: 0 0 39px;\n  position: relative;\n  border-bottom: 1px solid var(--rmsc-border);\n}\n.rmsc .search input {\n  background: none;\n  height: var(--rmsc-h);\n  padding: 0 var(--rmsc-p);\n  width: 100%;\n  outline: 0;\n  border: 0;\n}\n.rmsc .search-clear-button {\n  cursor: pointer;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  background: none;\n  border: 0;\n  padding: 0 calc(var(--rmsc-p) / 2);\n}\n.rmsc .search-clear-button [hidden] {\n  display: none;\n}\n.rmsc .item-renderer {\n  display: flex;\n  align-items: baseline;\n}\n.rmsc .item-renderer input {\n  margin: 0;\n  margin-right: 5px;\n}\n.rmsc .item-renderer.disabled {\n  opacity: 0.5;\n}\n.rmsc .spinner {\n  animation: rotate 2s linear infinite;\n}\n.rmsc .spinner .path {\n  stroke: var(--rmsc-border);\n  stroke-width: 4px;\n  stroke-linecap: round;\n  animation: dash 1.5s ease-in-out infinite;\n}\n@keyframes rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes dash {\n  0% {\n    stroke-dasharray: 1, 150;\n    stroke-dashoffset: 0;\n  }\n  50% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -35;\n  }\n  100% {\n    stroke-dasharray: 90, 150;\n    stroke-dashoffset: -124;\n  }\n}\n");
+
+// src/multi-select/index.tsx
+import React11 from "react";
+
+// src/hooks/use-multi-select.tsx
+import React, { useEffect, useState } from "react";
+var defaultStrings = {
+  allItemsAreSelected: "All items are selected.",
+  clearSearch: "Clear Search",
+  clearSelected: "Clear Selected",
+  noOptions: "No options",
+  search: "Search",
+  selectAll: "Select All",
+  selectAllFiltered: "Select All (Filtered)",
+  selectSomeItems: "Select...",
+  create: "Create"
+};
+var defaultProps = {
+  value: [],
+  hasSelectAll: true,
+  isSelectAll: false,
+  className: "multi-select",
+  debounceDuration: 200,
+  options: [],
+  defaultIsOpen: true
+};
+var MultiSelectContext = React.createContext({});
+var MultiSelectProvider = ({
+  props,
+  children
+}) => {
+  const [options, setOptions] = useState(props.options);
+  const t = (key) => {
+    var _a;
+    return ((_a = props.overrideStrings) == null ? void 0 : _a[key]) || defaultStrings[key];
+  };
+  useEffect(() => {
+    setOptions(props.options);
+  }, [props.options]);
+  return /* @__PURE__ */ React.createElement(MultiSelectContext.Provider, {
+    value: __spreadProps(__spreadValues(__spreadValues({ t }, defaultProps), props), { options, setOptions })
+  }, children);
+};
+var useMultiSelect = () => React.useContext(MultiSelectContext);
+
+// src/multi-select/dropdown.tsx
+import React10, { useEffect as useEffect5, useRef as useRef5, useState as useState3 } from "react";
+
+// src/hooks/use-did-update-effect.tsx
+import { useEffect as useEffect2, useRef } from "react";
+function useDidUpdateEffect(fn, inputs) {
+  const didMountRef = useRef(false);
+  useEffect2(() => {
+    if (didMountRef.current)
+      fn();
+    else
+      didMountRef.current = true;
+  }, inputs);
+}
+
+// src/hooks/use-key.tsx
+import { useCallback, useEffect as useEffect3, useMemo, useRef as useRef2 } from "react";
+var defaultOptions = {
+  when: true,
+  eventTypes: ["keydown"]
+};
+function useKey(input, callback, opts) {
+  const keyList = useMemo(() => Array.isArray(input) ? input : [input], [input]);
+  const options = Object.assign({}, defaultOptions, opts);
+  const { when, eventTypes } = options;
+  const callbackRef = useRef2(callback);
+  const { target } = options;
+  useEffect3(() => {
+    callbackRef.current = callback;
+  });
+  const handle = useCallback((e) => {
+    if (keyList.some((k) => e.key === k || e.code === k)) {
+      callbackRef.current(e);
+    }
+  }, [keyList]);
+  useEffect3(() => {
+    if (when && typeof window !== "undefined") {
+      const targetNode = target ? target["current"] : window;
+      eventTypes.forEach((eventType) => {
+        targetNode && targetNode.addEventListener(eventType, handle);
+      });
+      return () => {
+        eventTypes.forEach((eventType) => {
+          targetNode && targetNode.removeEventListener(eventType, handle);
+        });
+      };
+    }
+  }, [when, eventTypes, keyList, target, callback]);
+}
+
+// src/lib/constants.tsx
+var KEY = {
+  ARROW_DOWN: "ArrowDown",
+  ARROW_UP: "ArrowUp",
+  ENTER: "Enter",
+  ESCAPE: "Escape",
+  SPACE: "Space"
+};
+
+// src/select-panel/index.tsx
+import React6, {
+  useCallback as useCallback2,
+  useEffect as useEffect4,
+  useMemo as useMemo2,
+  useRef as useRef4,
+  useState as useState2
+} from "react";
+
+// src/lib/debounce.tsx
+var debounce = (func, wait) => {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(null, args);
+    }, wait);
+  };
+};
+
+// src/lib/simple-match-utils.tsx
+function filterOptions(options, filter) {
+  if (!filter) {
+    return options;
+  }
+  return options.filter(({ label, value }) => label != null && value != null && label.toLowerCase().includes(filter.toLowerCase()));
+}
+
+// src/select-panel/cross.tsx
+import React2 from "react";
+var Cross = () => /* @__PURE__ */ React2.createElement("svg", {
+  width: "24",
+  height: "24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "2",
+  className: "dropdown-search-clear-icon gray"
+}, /* @__PURE__ */ React2.createElement("line", {
+  x1: "18",
+  y1: "6",
+  x2: "6",
+  y2: "18"
+}), /* @__PURE__ */ React2.createElement("line", {
+  x1: "6",
+  y1: "6",
+  x2: "18",
+  y2: "18"
+}));
+
+// src/select-panel/select-item.tsx
+import React4, { useRef as useRef3 } from "react";
+
+// src/select-panel/default-item.tsx
+import React3 from "react";
+var DefaultItemRenderer = ({
+  checked,
+  option,
+  onClick,
+  disabled
+}) => /* @__PURE__ */ React3.createElement("div", {
+  className: `item-renderer ${disabled && "disabled"}`
+}, /* @__PURE__ */ React3.createElement("input", {
+  type: "checkbox",
+  onChange: onClick,
+  checked,
+  tabIndex: -1,
+  disabled
+}), /* @__PURE__ */ React3.createElement("span", null, option.label));
+var default_item_default = DefaultItemRenderer;
+
+// src/select-panel/select-item.tsx
+var SelectItem = ({
+  itemRenderer: ItemRenderer = default_item_default,
+  option,
+  checked,
+  tabIndex,
+  disabled,
+  onSelectionChanged,
+  onClick
+}) => {
+  const itemRef = useRef3();
+  const onOptionCheck = (e) => {
+    toggleChecked();
+    e.preventDefault();
+  };
+  const toggleChecked = () => {
+    if (!disabled) {
+      onSelectionChanged(!checked);
+    }
+  };
+  const handleClick = (e) => {
+    toggleChecked();
+    onClick(e);
+  };
+  useKey([KEY.ENTER, KEY.SPACE], onOptionCheck, { target: itemRef });
+  return /* @__PURE__ */ React4.createElement("label", {
+    className: `select-item ${checked && "selected"}`,
+    role: "option",
+    "aria-selected": checked,
+    tabIndex,
+    ref: itemRef
+  }, /* @__PURE__ */ React4.createElement(ItemRenderer, {
+    option,
+    checked,
+    onClick: handleClick,
+    disabled
+  }));
+};
+var select_item_default = SelectItem;
+
+// src/select-panel/select-list.tsx
+import React5 from "react";
+var SelectList = ({ options, onClick, skipIndex }) => {
+  const { disabled, value, onChange, ItemRenderer } = useMultiSelect();
+  const handleSelectionChanged = (option, checked) => {
+    if (disabled)
+      return;
+    onChange(checked ? [...value, option] : value.filter((o) => o.value !== option.value));
+  };
+  return /* @__PURE__ */ React5.createElement(React5.Fragment, null, options.map((o, i) => {
+    const tabIndex = i + skipIndex;
+    return /* @__PURE__ */ React5.createElement("li", {
+      key: (o == null ? void 0 : o.key) || i
+    }, /* @__PURE__ */ React5.createElement(select_item_default, {
+      tabIndex,
+      option: o,
+      onSelectionChanged: (c) => handleSelectionChanged(o, c),
+      checked: !!value.find((s) => s.value === o.value),
+      onClick: (e) => onClick(e, tabIndex),
+      itemRenderer: ItemRenderer,
+      disabled: o.disabled || disabled
+    }));
+  }));
+};
+var select_list_default = SelectList;
+
+// src/select-panel/index.tsx
+var SelectPanel = () => {
+  const {
+    t,
+    onChange,
+    options,
+    setOptions,
+    value,
+    filterOptions: customFilterOptions,
+    ItemRenderer,
+    disabled,
+    disableSearch,
+    hasSelectAll,
+    ClearIcon,
+    debounceDuration,
+    isCreatable,
+    onCreateOption,
+    isSelectAll
+  } = useMultiSelect();
+  const listRef = useRef4();
+  const searchInputRef = useRef4();
+  const [searchText, setSearchText] = useState2("");
+  const [filteredOptions, setFilteredOptions] = useState2(options);
+  const [searchTextForFilter, setSearchTextForFilter] = useState2("");
+  const [focusIndex, setFocusIndex] = useState2(0);
+  const debouncedSearch = useCallback2(debounce((query) => setSearchTextForFilter(query), debounceDuration), []);
+  const skipIndex = useMemo2(() => {
+    let start = 0;
+    if (!disableSearch)
+      start += 1;
+    if (hasSelectAll)
+      start += 1;
+    return start;
+  }, [disableSearch, hasSelectAll]);
+  const selectAllOption = {
+    label: searchText ? t("selectAllFiltered") : t("selectAll"),
+    value: ""
+  };
+  const selectAllValues = (checked) => {
+    const filteredValues = filteredOptions.filter((o) => !o.disabled).map((o) => o.value);
+    if (checked) {
+      const selectedValues = value.map((o) => o.value);
+      const finalSelectedValues = [...selectedValues, ...filteredValues];
+      return (customFilterOptions ? filteredOptions : options).filter((o) => finalSelectedValues.includes(o.value));
+    }
+    return value.filter((o) => !filteredValues.includes(o.value));
+  };
+  const selectAllChanged = (checked) => {
+    const newOptions = selectAllValues(checked);
+    onChange(newOptions);
+  };
+  const handleSearchChange = (e) => {
+    debouncedSearch(e.target.value);
+    setSearchText(e.target.value);
+    setFocusIndex(0 /* SEARCH */);
+  };
+  const handleClear = () => {
+    var _a;
+    setSearchTextForFilter("");
+    setSearchText("");
+    (_a = searchInputRef == null ? void 0 : searchInputRef.current) == null ? void 0 : _a.focus();
+  };
+  const handleItemClicked = (index) => setFocusIndex(index);
+  const handleKeyDown = (e) => {
+    switch (e.code) {
+      case KEY.ARROW_UP:
+        updateFocus(-1);
+        break;
+      case KEY.ARROW_DOWN:
+        updateFocus(1);
+        break;
+      default:
+        return;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  };
+  useKey([KEY.ARROW_DOWN, KEY.ARROW_UP], handleKeyDown, {
+    target: listRef
+  });
+  const handleSearchFocus = () => {
+    setFocusIndex(0 /* SEARCH */);
+  };
+  const handleOnCreateOption = async () => {
+    let newOption = { label: searchText, value: searchText, __isNew__: true };
+    if (onCreateOption) {
+      newOption = await onCreateOption(searchText);
+    }
+    setOptions([newOption, ...options]);
+    handleClear();
+    onChange([...value, newOption]);
+  };
+  const getFilteredOptions = async () => customFilterOptions ? await customFilterOptions(options, searchTextForFilter) : filterOptions(options, searchTextForFilter);
+  const updateFocus = (offset) => {
+    let newFocus = focusIndex + offset;
+    newFocus = Math.max(0, newFocus);
+    newFocus = Math.min(newFocus, options.length + Math.max(skipIndex - 1, 0));
+    setFocusIndex(newFocus);
+  };
+  useEffect4(() => {
+    selectAllChanged(isSelectAll);
+  }, []);
+  useEffect4(() => {
+    var _a, _b;
+    (_b = (_a = listRef == null ? void 0 : listRef.current) == null ? void 0 : _a.querySelector(`[tabIndex='${focusIndex}']`)) == null ? void 0 : _b.focus();
+  }, [focusIndex]);
+  const [isAllOptionSelected, hasSelectableOptions] = useMemo2(() => {
+    const filteredOptionsList = filteredOptions.filter((o) => !o.disabled);
+    return [
+      filteredOptionsList.every((o) => value.findIndex((v) => v.value === o.value) !== -1),
+      filteredOptionsList.length !== 0
+    ];
+  }, [filteredOptions, value]);
+  useEffect4(() => {
+    getFilteredOptions().then(setFilteredOptions);
+  }, [searchTextForFilter, options]);
+  const creationRef = useRef4();
+  useKey([KEY.ENTER], handleOnCreateOption, { target: creationRef });
+  const showCratable = isCreatable && searchText && !filteredOptions.some((e) => (e == null ? void 0 : e.value) === searchText);
+  return /* @__PURE__ */ React6.createElement("div", {
+    className: "select-panel",
+    role: "listbox",
+    ref: listRef
+  }, !disableSearch && /* @__PURE__ */ React6.createElement("div", {
+    className: "search"
+  }, /* @__PURE__ */ React6.createElement("input", {
+    placeholder: t("search"),
+    type: "text",
+    "aria-describedby": t("search"),
+    onChange: handleSearchChange,
+    onFocus: handleSearchFocus,
+    value: searchText,
+    ref: searchInputRef,
+    tabIndex: 0
+  }), /* @__PURE__ */ React6.createElement("button", {
+    type: "button",
+    className: "search-clear-button",
+    hidden: !searchText,
+    onClick: handleClear,
+    "aria-label": t("clearSearch")
+  }, ClearIcon || /* @__PURE__ */ React6.createElement(Cross, null))), /* @__PURE__ */ React6.createElement("ul", {
+    className: "options"
+  }, hasSelectAll && hasSelectableOptions && /* @__PURE__ */ React6.createElement(select_item_default, {
+    tabIndex: skipIndex === 1 ? 0 : 1,
+    checked: isAllOptionSelected,
+    option: selectAllOption,
+    onSelectionChanged: selectAllChanged,
+    onClick: () => handleItemClicked(1),
+    itemRenderer: ItemRenderer,
+    disabled
+  }), filteredOptions.length ? /* @__PURE__ */ React6.createElement(select_list_default, {
+    skipIndex,
+    options: filteredOptions,
+    onClick: (_e, index) => handleItemClicked(index)
+  }) : showCratable ? /* @__PURE__ */ React6.createElement("li", {
+    onClick: handleOnCreateOption,
+    className: "select-item creatable",
+    tabIndex: skipIndex === 1 ? 0 : 1,
+    ref: creationRef
+  }, `${t("create")} "${searchText}"`) : /* @__PURE__ */ React6.createElement("li", {
+    className: "no-options"
+  }, t("noOptions"))));
+};
+var select_panel_default = SelectPanel;
+
+// src/multi-select/arrow.tsx
+import React7 from "react";
+var Arrow = ({ expanded }) => /* @__PURE__ */ React7.createElement("svg", {
+  width: "24",
+  height: "24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "2",
+  className: "dropdown-heading-dropdown-arrow gray"
+}, /* @__PURE__ */ React7.createElement("path", {
+  d: expanded ? "M18 15 12 9 6 15" : "M6 9L12 15 18 9"
+}));
+
+// src/multi-select/header.tsx
+import React8 from "react";
+var DropdownHeader = () => {
+  const { t, value, options, valueRenderer } = useMultiSelect();
+  const noneSelected = value.length === 0;
+  const allSelected = value.length === options.length;
+  const customText = valueRenderer && valueRenderer(value, options);
+  const getSelectedText = () => value.map((s) => s.label).join(", ");
+  return noneSelected ? /* @__PURE__ */ React8.createElement("span", {
+    className: "gray"
+  }, customText || t("selectSomeItems")) : /* @__PURE__ */ React8.createElement("span", null, customText || (allSelected ? t("allItemsAreSelected") : getSelectedText()));
+};
+
+// src/multi-select/loading.tsx
+import React9 from "react";
+var Loading = ({ size = 24 }) => /* @__PURE__ */ React9.createElement("span", {
+  style: {
+    width: size,
+    marginRight: "0.2rem"
+  }
+}, /* @__PURE__ */ React9.createElement("svg", {
+  width: size,
+  height: size,
+  className: "spinner",
+  viewBox: "0 0 50 50",
+  style: { display: "inline", verticalAlign: "middle" }
+}, /* @__PURE__ */ React9.createElement("circle", {
+  cx: "25",
+  cy: "25",
+  r: "20",
+  fill: "none",
+  className: "path"
+})));
+
+// src/multi-select/dropdown.tsx
+var Dropdown = () => {
+  const {
+    t,
+    onMenuToggle,
+    ArrowRenderer,
+    shouldToggleOnHover,
+    isLoading,
+    disabled,
+    onChange,
+    labelledBy,
+    value,
+    isOpen,
+    defaultIsOpen,
+    ClearSelectedIcon,
+    closeOnChangedValue
+  } = useMultiSelect();
+  useEffect5(() => {
+    if (closeOnChangedValue) {
+      setExpanded(false);
+    }
+  }, [value]);
+  const [isInternalExpand, setIsInternalExpand] = useState3(true);
+  const [expanded, setExpanded] = useState3(defaultIsOpen);
+  const [hasFocus, setHasFocus] = useState3(false);
+  const FinalArrow = ArrowRenderer || Arrow;
+  const wrapper = useRef5();
+  useDidUpdateEffect(() => {
+    onMenuToggle && onMenuToggle(expanded);
+  }, [expanded]);
+  useEffect5(() => {
+    if (defaultIsOpen === void 0 && typeof isOpen === "boolean") {
+      setIsInternalExpand(false);
+      setExpanded(isOpen);
+    }
+  }, [isOpen]);
+  const handleKeyDown = (e) => {
+    var _a;
+    if (["text", "button"].includes(e.target.type) && [KEY.SPACE, KEY.ENTER].includes(e.code)) {
+      return;
+    }
+    if (isInternalExpand) {
+      if (e.code === KEY.ESCAPE) {
+        setExpanded(false);
+        (_a = wrapper == null ? void 0 : wrapper.current) == null ? void 0 : _a.focus();
+      } else {
+        setExpanded(true);
+      }
+    }
+    e.preventDefault();
+  };
+  useKey([KEY.ENTER, KEY.ARROW_DOWN, KEY.SPACE, KEY.ESCAPE], handleKeyDown, {
+    target: wrapper
+  });
+  const handleHover = (iexpanded) => {
+  };
+  const handleFocus = () => !hasFocus && setHasFocus(true);
+  const handleBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget) && isInternalExpand) {
+      setHasFocus(false);
+    }
+  };
+  const handleMouseEnter = () => handleHover(true);
+  const handleMouseLeave = () => handleHover(false);
+  const toggleExpanded = () => {
+    isInternalExpand && setExpanded(isLoading || disabled ? false : !expanded);
+  };
+  const handleClearSelected = (e) => {
+    e.stopPropagation();
+    onChange([]);
+  };
+  return /* @__PURE__ */ React10.createElement("div", {
+    tabIndex: 0,
+    className: "dropdown-container",
+    "aria-labelledby": labelledBy,
+    "aria-expanded": expanded,
+    "aria-readonly": true,
+    "aria-disabled": disabled,
+    ref: wrapper,
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave
+  }, /* @__PURE__ */ React10.createElement("div", {
+    className: "dropdown-heading"
+  }, /* @__PURE__ */ React10.createElement("div", {
+    className: "dropdown-heading-value"
+  }, /* @__PURE__ */ React10.createElement(DropdownHeader, null)), isLoading && /* @__PURE__ */ React10.createElement(Loading, null), value.length > 0 && ClearSelectedIcon !== null && /* @__PURE__ */ React10.createElement("button", {
+    type: "button",
+    className: "clear-selected-button",
+    onClick: handleClearSelected,
+    disabled,
+    "aria-label": t("clearSelected")
+  }, ClearSelectedIcon || /* @__PURE__ */ React10.createElement(Cross, null))), expanded && /* @__PURE__ */ React10.createElement("div", {
+    className: "dropdown-content"
+  }, /* @__PURE__ */ React10.createElement("div", {
+    className: "panel-content"
+  }, /* @__PURE__ */ React10.createElement(select_panel_default, null))));
+};
+var dropdown_default = Dropdown;
+
+// src/multi-select/index.tsx
+var MultiSelect = (props) => /* @__PURE__ */ React11.createElement(MultiSelectProvider, {
+  props
+}, /* @__PURE__ */ React11.createElement("div", {
+  className: `rmsc ${props.className || "multi-select"}`
+}, /* @__PURE__ */ React11.createElement(dropdown_default, null)));
+var multi_select_default = MultiSelect;
+export {
+  dropdown_default as Dropdown,
+  multi_select_default as MultiSelect,
+  select_item_default as SelectItem,
+  select_panel_default as SelectPanel
+};

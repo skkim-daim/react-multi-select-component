@@ -11,8 +11,8 @@ export default {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 500px;
+  width: 200px;
+  height: 300px;
 `;
 
 export const ExampleDefault = () => {
@@ -35,6 +35,7 @@ export const ExampleDefault = () => {
         }}
         labelledBy={text("labelledBy", "Select Fruits")}
         className={text("className", "multi-select")}
+        isSelectAll
       />
     </Wrapper>
   );
